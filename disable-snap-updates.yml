@@ -1,0 +1,8 @@
+- name: Disable snap update check
+  hosts: all
+  become: yes
+
+  tasks:
+    - shell: snap refresh --hold
+      register: output
+      failed_when: "'snap: not found' in output.stderr" # In case remote server doesn't have snap installed
